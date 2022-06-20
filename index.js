@@ -52,7 +52,7 @@ app.post('/login', loginValidation, (req, res) => {
 });
 
 app.post('/talker',
-  loginValidation,
+  // loginValidation,
   authValidation,
   nameValidation,
   ageValidation,
@@ -63,13 +63,14 @@ app.post('/talker',
     const { name, age, talk } = req.body;
     const file = await fs.readFile(talkerFile);
     const content = JSON.parse(file);
-    content.push({ id: 1, name, age, talk });
+    const id = content.length + 1;
+    content.push({ id, name, age, talk });
     fs.writeFile(talkerFile, JSON.stringify(content));
-    res.status(201).json(content);
+    res.status(201).json({ id, name, age, talk });
 });
 
 app.put('/talker/:id',
-  loginValidation,
+  // loginValidation,
   authValidation,
   nameValidation,
   ageValidation,
@@ -85,7 +86,7 @@ app.put('/talker/:id',
     content[talkerIndex] = { ...content[talkerIndex], name, age, talk };
     fs.writeFile(talkerFile, JSON.stringify(content));
 
-    res.status(200).json(content);
+    res.status(200).json({ id: Number(id), name, age, talk });
 });
 
 app.delete('/talker/:id', authValidation, async (req, res) => {
