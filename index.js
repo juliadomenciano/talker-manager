@@ -52,7 +52,6 @@ app.post('/login', loginValidation, (req, res) => {
 });
 
 app.post('/talker',
-  // loginValidation,
   authValidation,
   nameValidation,
   ageValidation,
@@ -70,7 +69,6 @@ app.post('/talker',
 });
 
 app.put('/talker/:id',
-  // loginValidation,
   authValidation,
   nameValidation,
   ageValidation,
